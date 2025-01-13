@@ -19,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginTeacher />} />
           <Route path="/classes" element={<Classes />} />
+          <Route path="/admin" element={<Dashboard />} />
           <Route path="/class-details/:className" element={<ListeClasses />} />
           <Route path="/ajouter-enfant" element={<ADDChild />} />
           <Route path="/cours" element={<CoursTeacher />} />
