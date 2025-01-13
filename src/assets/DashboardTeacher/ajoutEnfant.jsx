@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import styles from './ajoutEnfant.module.css';
 import image from './Group 237658.png';
 
 function Classes() {
+    const [name, setName] = useState('');
+    const [responseMessage, setResponseMessage] = useState('');
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      try {
+        const response = await axios.post('http://localhost:5000/api/users/add-child', {
+          name,
+        });
+  
+        setResponseMessage(response.data.message);
+        setName(''); // Réinitialiser le champ
+      } catch (error) {
+        console.error(error);
+        setResponseMessage('Erreur lors de l\'ajout de l\'enfant.');
+      }
+    };
     return (
         <div className={styles.container}>
             <div className={styles.sidebarContent}>
@@ -37,16 +56,19 @@ function Classes() {
                     </div>
                     <h1 className={styles.title}>Ajouter enfant</h1>
                     <div className={styles.inputGroup}>
+                        
                         <label htmlFor="childName" className={styles.inputLabel}>
                             Nom Enfant <span className={styles.required}>*</span>
                         </label>
                         <input
-                            type="text"
-                            id="childName"
-                            className={styles.textInput}
-                            required
-                            aria-required="true"
-                        />
+                type="text"
+                id="childName"
+                className={styles.textInput}
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                aria-required="true"
+              />
                     </div>
 
                     <div className={styles.inputGroup}>
